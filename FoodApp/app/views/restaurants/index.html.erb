@@ -1,0 +1,61 @@
+
+<html>
+<head>
+  <%= render 'layouts/nav_bar_restaurant' %>
+  </head>
+<body>
+  <h1>Restaurants</h1>
+  <br />
+  <table>
+    <thead>
+      <tr>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% restaurant_c=Restaurant.find_by_user_id(current_user.id) %>
+        <% if restaurant_c.nil? %>
+          <tr>
+            <td>
+              <%= link_to 'Add Restaurant', new_restaurant_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-lg'} %>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td><%= link_to "Add item to menu" , new_menu_item_url %></td>
+        </tr>
+        <tr>
+          <td>
+            <%= form_tag(restaurants_path, method: :get) do %>
+              <div class='row'>
+                <div class="form-group col-xl-12 col-md-8">
+                  <%= text_field_tag :name, nil, placeholder: 'Type your search term here', class: 'form-control' %>
+                </div>
+                <div class="form-group col-xl-12 col-md-8">
+                  <%= submit_tag "Search", class: "btn btn-primary" %>
+                </div>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+  <div id="modal-window" class="modal fade"></div>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @menuitems.each do |menuitem| %>
+        <tr>
+          <td><%= menuitem.name %></td>
+          <td><%= link_to "Edit" , edit_menu_item_path(menuitem) %></td>
+          <td><%= link_to 'Destroy', menuitem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</body>
+</html>

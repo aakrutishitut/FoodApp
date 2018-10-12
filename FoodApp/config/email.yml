@@ -1,0 +1,14 @@
+development:
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :user_name: 'ramarathore76@gmail.com' 
+  :password: 'Manasi@123'
+  :enable_starttls_auto: true
+production:
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :user_name: 'ramarathore76@gmail.com'
+  :password: 'Manasi@123'
+  :enable_starttls_auto: true

@@ -1,0 +1,25 @@
+<!-- Displays list of menu items of particular restaurant to the customer-->
+<%= render partial: "layouts/nav_bar" %>
+<br />
+<h1>Menu Items</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @menu_items.each do |menu_item| %>
+      <tr>
+        <td><%= menu_item.name %></td>
+        <td><%= menu_item.amount %></td>
+        <!-- On click adds the item to the cart of the customer-->
+        <td><%= link_to 'Add',  new_item_path(:restaurant_id => menu_item.restaurant_id,:amount_rec => menu_item.amount, :menu_item_id_rec => menu_item.id, :name_rec => menu_item.name),:class => "badge badge-light" %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <!-- Redirects to page where customer confirms order-->
+      <td><%= link_to 'Place order', new_order_path(:restaurant_id => params[:restaurant]),class: 'btn btn-primary btn-lg' %></td>
+    </tr>
+  </tbody>
+</table>

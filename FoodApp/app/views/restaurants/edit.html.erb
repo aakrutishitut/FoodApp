@@ -1,0 +1,38 @@
+<h1>Editing Restaurant</h1>
+
+<%= render 'form', restaurant: @restaurant %>
+
+<%= link_to 'Back', restaurants_path %>
+
+<%= form_for(:restaurant, :url => {:action => 'create'}) do |f| %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= f.label :rate_for_two %><br />
+    <%= f.text_field :rate_for_two %>
+  </div>
+  <div class="field">
+   <br />
+    <%= f.check_box :vegetarian_tag %>
+     <%= f.label :vegetarian_tag %>
+  </div>
+
+  <br /><br /><br />
+  <div class="actions">
+    <%= f.submit "Register restaurant" %>
+  </div>
+<% end %>

@@ -1,0 +1,23 @@
+<%= render partial: "layouts/nav_bar" %>
+<h1>Your order</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |menu_item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.amount %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td>
+        <%= link_to 'Place order',  edit_order_path(order,:restaurant_id => params[:restaurant]) %>
+      </td>
+    </tr>
+  </tbody>
+</table>
