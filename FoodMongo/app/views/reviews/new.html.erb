@@ -1,0 +1,24 @@
+
+<%= render 'layouts/nav_bar' %>
+<%= error_messages_for(@review) %>
+<div class="form">
+  <h1>Add your review</h1>
+  <%= form_for(:review, :url => {:action => 'create'}) do |f| %>
+    <div class="form-row mb-4">
+      <!--Name -->
+      <%= f.label :rating %>
+      <%= f.select(:rating, [1,2,3,4,5],{id: 'mySelect2'}) %>
+      <%= f.text_field :comment, :id => "defaultRegisterPhonePassword", :class => "form-control", :placeholder => "Comments" %>
+      <%= f.hidden_field :restaurant_id, value: params[:restaurant_id] %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <br />
+      <br />
+      <div class="actions">
+        <%= f.submit "Add", class: "btn btn-info my-4 btn-block" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<script>
+  $("#mySelect2").select2({theme: "classic"});
+</script>

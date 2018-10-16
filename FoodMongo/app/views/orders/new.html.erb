@@ -1,0 +1,51 @@
+<!--Displays form to take attributes of order to be placed -->
+<!-- Displays validation errors if any (helper written in Application Helper)-->
+<%= error_messages_for(@order) %>
+<%= render partial: "layouts/nav_bar" %>
+<div class="form">
+  <h2>Order details</h2>
+  <%= form_for(:order, :url => {:action => 'create'}) do |f| %>
+    <h3>Your cart</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each do |item| %>
+          <tr>
+            <td><%= item.name %></td>
+            <td><%= item.quantity %></td>
+            <td><%= item.amount %></td>
+            <td>
+              <%= link_to 'Remove', cart_url(item), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br />
+    <h4>Order Total</h4>
+    <h4><%= @total %></h4>
+    <h5>Payment method</h5>
+    <div class="field">
+      <%= f.radio_button :payment_mode, 'cash' %>
+      <%= f.label :payment_mode_cash, "Cash" %><br />
+    </div>
+    <div class="field">
+      <%= f.radio_button :payment_mode, 'netbanking' %>
+      <%= f.label :typeofu_customer, "Net Banking" %><br />
+    </div>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :total, value: @total %>
+    <%= f.hidden_field :status, value: "Confirmed" %>
+    <%= f.hidden_field :restaurant_id, value: params[:restaurant_id] %>
+    <br />
+    <div class="actions">
+      <%= f.submit "Place Order", class: 'btn btn-primary btn-lg' %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,83 @@
+<%= render partial: "layouts/nav_bar" %>
+<br />
+
+   <table class="table">
+    <tr>
+      <%= form_tag(restaurants_path, method: :get) do %>
+        <td>
+          <div class="form-group col-xl-12 col-md-8">
+        <%= text_field_tag :name, nil, placeholder: 'Search by restaurant', class: 'form-control' %>
+          </div>
+        </td>
+        <td>
+          <div class="form-group col-xl-12 col-md-8">
+            <%= submit_tag "Search", class: "btn btn-primary" %>
+          </div>
+        </td>
+      <% end %>
+      <%= form_tag(restaurants_path, method: :get) do %>
+        <td>
+          <div class="form-group col-xl-12 col-md-8">
+            <%= text_field_tag :location, nil, placeholder: 'Search by location', class: 'form-control' %>
+          </div>
+        </td>
+        <td>
+          <div class="form-group col-xl-12 col-md-8">
+            <%= submit_tag "Search", class: "btn btn-primary" %>
+          </div>
+        </td>
+      <% end %>
+    </tr>
+  </table>
+  <% if @restaurants.nil? %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Rating</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tr>
+         <td><%= image_tag @restaurant.image.thumb.url unless @restaurant.image.blank? %></td>
+        <td><%= link_to @restaurant.name , restaurant_url(@restaurant) %></td>
+        <td><%= @restaurant.location %></td>
+        <% sum= Review.where(:restaurant_id => @restaurant.id).avg(:rating) %>
+        <td><%= sum %></td>
+        <td>
+          <%= link_to 'Review',new_review_url(@restaurant),:class => "badge badge-light" %>
+        </td>
+      </tr>
+    </table>
+  <% else %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Rating</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <h3>Restaurants</h3>
+        </tr>
+        <% @restaurants.each do |restaurant| %>
+          <tr>
+            <td><%= image_tag restaurant.image.thumb.url unless restaurant.image.blank? %></td>
+            <td><%= link_to restaurant.name , restaurant_url(restaurant) %></td>
+            <td><%= restaurant.location %></td>
+            <% sum= Review.where(:restaurant_id => restaurant.id).avg(:rating) %>
+            <td><%= sum %></td>
+            <td>
+              <%= link_to 'Review',new_review_url(:restaurant_id => restaurant.id),:class => "badge badge-light" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>

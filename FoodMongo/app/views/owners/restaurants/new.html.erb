@@ -1,0 +1,38 @@
+
+<%= render partial: "layouts/nav_bar" %>
+<%= error_messages_for(@restaurant) %>
+<%= form_for(:restaurant, :url => {:action => 'create'}) do |f| %>
+      <div class="form">
+        <div class="field">
+          <%= f.label :name %><br />
+          <%= f.text_field :name %>
+        </div>
+         <div class="mySelect">
+          <%= f.label :city_id %>
+          <%= f.select(:city_id, City.all.collect { |t| [t.name,t.id]}, {default: City.first} ,{class: 'mySelect2'}) %>
+        </div>
+        <br />
+        <script>
+          $(".mySelect2").select2({theme: "classic"});
+        </script>
+        <div class="field">
+          <%= f.label :location %><br />
+          <%= f.text_field :location %>
+        </div>
+        <div class="field">
+          <%= f.label :rate_for_two %><br />
+          <%= f.text_field :rate_for_two %>
+        </div>
+        <div class="field">
+          <br />
+          <%= f.check_box :vegetarian_tag %>
+          <%= f.label :vegetarian_tag %>
+        </div>
+        <div class="field">
+          <%= f.label :image %><br />
+          <%= f.file_field :image %>
+        </div>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <br /><br />
+        <%= f.submit "Register restaurant", class: "btn btn-primary", id: 'register' %>
+        <% end %>
