@@ -4,6 +4,7 @@ class Order
 
   belongs_to :user,foreign_key: :user_id
   belongs_to :restaurant,foreign_key: :restaurant_id
+  has_many :items, dependent: :delete_all
   field :order_time, type: Integer
   field :status, type: String
   field :payment_mode, type: String

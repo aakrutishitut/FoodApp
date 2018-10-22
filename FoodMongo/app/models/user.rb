@@ -4,13 +4,16 @@ class User
   validates :name, length: { within: 8..25 }
   validates :phone_no, length: { is: 10 }
 
-  after_destroy do |user|
-    restaurant = Restaurant.find_by_user_id(user.id)
-    restaurant.destroy
-  end
+  # after_destroy do |user|
+  #   if user.type_of_u="restaurant"
+  #     restaurant = Restaurant.find_by_user_id(user.id)
+  #     restaurant.destroy
+  #   end
+  # end
   
-  has_one :restaurant
-  has_many :orders
+  has_one :restaurant, dependent: :delete_all
+  has_many :orders, dependent: :delete_all
+  has_many :carts, dependent: :delete_all
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

@@ -1,5 +1,6 @@
 class Owners::RestaurantsController < ApplicationController
-  load_and_authorize_resource :restaurant
+  authorize_resource class: Owners
+  # load_and_authorize_resource class: Owners::Restaurant
   before_action :set_owners_restaurant, only: [:show, :edit, :update, :destroy]
   def index
     if restaurant_exists?
@@ -9,6 +10,8 @@ class Owners::RestaurantsController < ApplicationController
   # GET /owners/restaurants/1
   # GET /owners/restaurants/1.json
   def show
+    @city=City.find_by(id: @restaurant.city_id)
+    @sum= Review.where(:restaurant_id => @restaurant.id).avg(:rating)
     @restaurant=Restaurant.find_by(user_id: current_user.id)
     @menu_items=MenuItem.where(restaurant_id: @restaurant.id)
   end
@@ -26,10 +29,9 @@ class Owners::RestaurantsController < ApplicationController
   # POST /owners/restaurants.json
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    byebug
     respond_to do |format|
       if @restaurant.save
-        format.html { redirect_to @restaurants, notice: 'Restaurant was successfully created.' }
+        format.html { redirect_to owners_restaurant_url(@restaurant), notice: 'Restaurant was successfully created.' }
       else
         format.html { render :new }
       end

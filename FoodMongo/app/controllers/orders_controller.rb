@@ -5,12 +5,18 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    if current_user.type_of_u=='restaurant'
+      @rest=Restaurant.find_by(user_id: current_user.id)
+      @orders=Order.where(restaurant_id: @rest.id.to_s).paginate(page: params[:page], per_page: 5)
+    else
+      @orders=Order.where(user_id: current_user.id).paginate(page: params[:page], per_page: 5)
+    end
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
+
   end
 
   # GET /orders/new
@@ -31,15 +37,16 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     respond_to do |format|
       if @order.save
-        @current_items = Cart.all
-        @current_items.each do |current_item|
-          @item = Item.new
-          @item.name = current_item.name
-          @item.quantity = current_item.quantity
-          @item.amount = current_item.amount
-          @item.order_id = @order.id
-          @item.save
-        end
+          @current_items = Cart.all
+          @current_items.each do |current_item|
+            @item = Item.new
+            @item.name = current_item.name
+            @item.quantity = current_item.quantity
+            @item.amount = current_item.amount
+            @item.order_id = @order.id
+            @item.save
+            UserMailer.order_confirmation(current_user.email).deliver_later
+          end
         Cart.destroy_all
         args = @order.to_json
         HardWorker.perform_in(1.minutes, args)
@@ -52,7 +59,25 @@ class OrdersController < ApplicationController
       end
     end
   end
-
+  def send_order_history
+    if current_user.type_of_u=='restaurant'
+      @rest=Restaurant.find_by(user_id: current_user.id)
+      @orders=Order.where(restaurant_id: @rest.id.to_s)
+    else
+      @orders=Order.where(user_id: current_user.id)
+    end
+    Spreadsheet.client_encoding = 'UTF-8'
+    book = Spreadsheet::Workbook.new
+    sheet1 = book.create_worksheet :name => current_user.name
+    i=0;
+    @orders.each do |order|
+      sheet1.row(i).push order.id, order.status, order.total
+      i=i+1
+    end
+    book.write 'order_history.xls'
+    UserMailer.order_history(current_user.email).deliver_later
+    redirect_to orders_url
+  end
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update

@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 	resources :menu_items
 	resources :reviews
   resources :carts
-  resources :orders
+  resources :orders do
+    collection do
+      get 'send_order_history'
+    end
+  end
   resources :items
 end

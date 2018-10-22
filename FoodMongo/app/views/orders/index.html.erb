@@ -1,25 +1,40 @@
-<p id="notice"><%= notice %></p>
-
+<!-- Displays list of orders placed by customer or received by restaurant-->
+<%= render partial: "layouts/nav_bar" %>
 <h1>Orders</h1>
-
-<table>
+<table class="table">
   <thead>
     <tr>
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
+    <tr><%= will_paginate @orders %></tr>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>Order total</td>
+        <td><%= order.total %></td>
+        <td><%= order.status %></td>
+        <td>
+        <% if order.status=="Confirmed" %>
+          
+            <!-- If the order is not delivered, order can be cancelled-->
+            <%= link_to 'Cancel',order_url(order), method: :delete, data: { confirm: 'Are you sure?' } %>
+          
+        <% end %>
+        </td>
       </tr>
     <% end %>
+    <tr>
+      <td>
+        <%= link_to 'Send order history',  send_order_history_orders_url %>
+      </td>
+    </tr>
+    <tr>
+      <% if current_user.type_of_u == 'customer' %>
+        <td>
+          <%= link_to 'Place order',  new_order_path(:restaurant_id => params[:restaurant]) %>
+        </td>
+      <% end %>
+    </tr>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Order', new_order_path %>

@@ -37,6 +37,12 @@ gem 'sidekiq'
 
 gem 'cancancan'
 
+gem "select2-rails"
+
+gem 'will_paginate', '~> 3.1.0'
+
+gem "will_paginate_mongoid"
+
 source 'https://rails-assets.org' do
     gem 'rails-assets-bootstrap'
     gem 'rails-assets-jquery'
@@ -48,6 +54,14 @@ gem 'autoprefixer-rails'
 gem 'sprockets-rails'
 
 gem 'popper_js'
+
+gem 'better_errors', '~> 2.1', '>= 2.1.1'
+
+gem 'spreadsheet'
+
+# gem 'mongoid-observers', '~> 0.3.0'
+
+# gem 'rails-observers',  github: 'rails/rails-observers'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

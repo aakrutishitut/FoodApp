@@ -12,17 +12,15 @@
     </tr>
     <tr>
       <th>City</th>
-      <% city=City.find_by(id: @restaurant.city_id) %>
-      <% if city.nil? %>
+      <% if @city.nil? %>
         <td></td>
       <% else %>
-        <td><%= city.name %></td>
+        <td><%= @city.name %></td>
       <% end %>
     </tr>
     <tr>
       <th>Rating</th>
-      <% sum= Review.where(:restaurant_id => @restaurant.id).avg(:rating) %>
-      <td><%= sum %></td>
+      <td><%= @sum %></td>
     </tr>
     <tr>
       <th>Rate for two</th>
@@ -38,6 +36,7 @@
     </tr>
   </thead>
   <tbody>
+    <tr><td><%= link_to "Add item to menu" , new_menu_item_url %></td></tr>
     <% @menu_items.each do |menu_item| %>
       <tr>
         <td><%= menu_item.name %></td>

@@ -1,11 +1,7 @@
 class Cart
   include Mongoid::Document
 
-  validates_presence_of :name
-  validates_presence_of :quantity
-  validates_presence_of :amount
-  validates_presence_of :restaurant_id
-
+  validates_presence_of :name, :quantity, :amount, :restaurant_id
 
   belongs_to :user,foreign_key: :user_id
   field :name,type: String

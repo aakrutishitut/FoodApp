@@ -1,3 +1,4 @@
+
 <%= render partial: "layouts/nav_bar" %>
 <br />
 
@@ -54,6 +55,7 @@
   <% else %>
     <table class="table table-striped">
       <thead>
+
         <tr>
           <th></th>
           <th>Name</th>
@@ -63,9 +65,11 @@
         </tr>
       </thead>
       <tbody>
+
         <tr>
           <h3>Restaurants</h3>
         </tr>
+        <tr><%= will_paginate @restaurants %></tr>
         <% @restaurants.each do |restaurant| %>
           <tr>
             <td><%= image_tag restaurant.image.thumb.url unless restaurant.image.blank? %></td>

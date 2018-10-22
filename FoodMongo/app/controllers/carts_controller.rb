@@ -14,14 +14,14 @@ class CartsController < ApplicationController
   # POST /carts.json
   def create
     @cart = Cart.new(cart_params)
-    @cart.amount=@cart.amount* @cart.quantity
+    tem=@cart.amount* @cart.quantity
+    @cart.amount=tem
     @restaurant=Restaurant.find_by(id: @cart.restaurant_id)
     respond_to do |format|
       if @cart.save
         format.html { redirect_to restaurant_url(@restaurant), notice: 'Item added to the cart.' }
       else
         format.html { render :new }
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -30,9 +30,9 @@ class CartsController < ApplicationController
   # DELETE /carts/1.json
   def destroy
     @cart.destroy
+    @restaurant=Restaurant.find_by(id: @cart.restaurant_id)
     respond_to do |format|
-      format.html { redirect_to carts_url, notice: 'Item was succesfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to new_order_url(@restaurant), notice: 'Item was succesfully destroyed.' }
     end
   end
 

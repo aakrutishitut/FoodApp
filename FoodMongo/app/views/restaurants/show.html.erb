@@ -12,17 +12,11 @@
     </tr>
     <tr>
       <th>City</th>
-      <% city=City.find_by(id: @restaurant.city_id) %>
-      <% if city.nil? %>
-        <td></td>
-      <% else %>
-        <td><%= city.name %></td>
-      <% end %>
+      <td><%= @city.name %></td>
     </tr>
     <tr>
       <th>Rating</th>
-      <% sum= Review.where(:restaurant_id => @restaurant.id).avg(:rating) %>
-      <td><%= sum %></td>
+      <td><%= @sum %></td>
     </tr>
     <tr>
       <th>Rate for two</th>
