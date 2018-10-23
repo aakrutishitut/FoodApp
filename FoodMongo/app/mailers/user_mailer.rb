@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 class UserMailer < ApplicationMailer
-	default from: 'ramarathore76@gmail.com'
+  default from: 'ramarathore76@gmail.com'
 
-	def order_history(email)
-	attachments.inline['order_history.xls'] = File.read('/home/amura/FoodApp/FoodMongo/order_history.xls')
+  def order_history(email)
+    attachments.inline['order_history.xls'] = File.read('/home/amura/FoodApp/FoodMongo/order_history.xls')
     mail(to: email.to_s, subject: 'Order history on FoodApp')
-	end
+  end
 
-	def order_confirmation(email)
-		mail(to: email.to_s, subject: 'Your order has been confirmed')
-
-	end
+  def order_confirmation(email)
+    mail(to: email.to_s, subject: 'Your order has been confirmed')
+  end
 end

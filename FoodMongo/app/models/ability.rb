@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Ability
   include CanCan::Ability
 
-   def initialize(user) # permissions for every user, even if not logged in
+  def initialize(user) # permissions for every user, even if not logged in
     if user.nil?
       can :read, Restaurant
     else
@@ -20,5 +22,5 @@ class Ability
         can :manage, Item
       end
     end
-  end
+ end
 end

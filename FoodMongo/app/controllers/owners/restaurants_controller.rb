@@ -1,19 +1,20 @@
+# frozen_string_literal: true
+
 class Owners::RestaurantsController < ApplicationController
   authorize_resource class: Owners
   # load_and_authorize_resource class: Owners::Restaurant
-  before_action :set_owners_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :set_owners_restaurant, only: %i[show edit update destroy]
   def index
-    if restaurant_exists?
-      redirect_to owners_restaurant_url(@restaurant)
-    end
+    redirect_to owners_restaurant_url(@restaurant) if restaurant_exists?
   end
+
   # GET /owners/restaurants/1
   # GET /owners/restaurants/1.json
   def show
-    @city=City.find_by(id: @restaurant.city_id)
-    @sum= @restaurant.reviews.avg(:rating)
-    @restaurant=Restaurant.find_by(user_id: current_user.id)
-    @menu_items=MenuItem.where(restaurant_id: @restaurant.id)
+    @city = City.find_by(id: @restaurant.city_id)
+    @sum = @restaurant.reviews.avg(:rating)
+    @restaurant = Restaurant.find_by(user_id: current_user.id)
+    @menu_items = MenuItem.where(restaurant_id: @restaurant.id)
   end
 
   # GET /owners/restaurants/new
@@ -22,8 +23,7 @@ class Owners::RestaurantsController < ApplicationController
   end
 
   # GET /owners/restaurants/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /owners/restaurants
   # POST /owners/restaurants.json
@@ -60,22 +60,23 @@ class Owners::RestaurantsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_owners_restaurant
-      @restaurant = Restaurant.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def restaurant_params
-      params.require(:restaurant).permit(:name, :city_id, :location, :rate_for_two, :vegetarian_tag,:image,:user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_owners_restaurant
+    @restaurant = Restaurant.find(params[:id])
+  end
 
-    def restaurant_exists?
-      @restaurant=Restaurant.find_by(user_id: current_user.id)
-      if @restaurant.nil?
-        false
-      else
-        true
-      end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :city_id, :location, :rate_for_two, :vegetarian_tag, :image, :user_id)
+  end
+
+  def restaurant_exists?
+    @restaurant = Restaurant.find_by(user_id: current_user.id)
+    if @restaurant.nil?
+      false
+    else
+      true
     end
+  end
 end

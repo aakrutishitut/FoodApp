@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Restaurant
   include Mongoid::Document
 
@@ -16,5 +18,5 @@ class Restaurant
   field :location, type: String
   field :city_id
   field :vegetarian_tag, type: String
-  field :image , type: String
+  field :image, type: String
 end

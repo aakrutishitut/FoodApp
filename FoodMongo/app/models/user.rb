@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User
   include Mongoid::Document
 
@@ -10,7 +12,7 @@ class User
   #     restaurant.destroy
   #   end
   # end
-  
+
   has_one :restaurant, dependent: :delete_all
   has_many :orders, dependent: :delete_all
   has_many :carts, dependent: :delete_all
@@ -19,10 +21,9 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-    
   ## Database authenticatable
-  field :email,              type: String, default: ""
-  field :encrypted_password, type: String, default: ""
+  field :email,              type: String, default: ''
+  field :encrypted_password, type: String, default: ''
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -32,11 +33,11 @@ class User
   field :remember_created_at, type: Time
 
   ## Customized
-  field :name,type: String
-  field :phone_no,type: String
-  field :home_add,type: String
-  field :work_add,type: String
-  field :type_of_u,type: String
+  field :name, type: String
+  field :phone_no, type: String
+  field :home_add, type: String
+  field :work_add, type: String
+  field :type_of_u, type: String
   ## Trackable
   # field :sign_in_count,      type: Integer, default: 0
   # field :current_sign_in_at, type: Time
@@ -55,7 +56,8 @@ class User
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
   protected
+
   def will_save_change_to_email?
-    false 
+    false
   end
 end
