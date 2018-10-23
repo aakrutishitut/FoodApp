@@ -48,7 +48,7 @@
         <% sum= Review.where(:restaurant_id => @restaurant.id).avg(:rating) %>
         <td><%= sum %></td>
         <td>
-          <%= link_to 'Review',new_review_url(@restaurant),:class => "badge badge-light" %>
+          <%= link_to 'Review',new_restaurant_review_url(@restaurant),:class => "badge badge-light" %>
         </td>
       </tr>
     </table>
@@ -78,7 +78,7 @@
             <% sum= Review.where(:restaurant_id => restaurant.id).avg(:rating) %>
             <td><%= sum %></td>
             <td>
-              <%= link_to 'Review',new_review_url(:restaurant_id => restaurant.id),:class => "badge badge-light" %>
+              <%= link_to 'Review',new_restaurant_review_url(:restaurant_id => restaurant.id),:class => "badge badge-light" %>
             </td>
           </tr>
         <% end %>

@@ -46,7 +46,7 @@
     </tr>
   </tbody>
 </table>
-  <% @reviews=Review.where(:restaurant_id => @restaurant.id) %>
+  <% @reviews=@restaurant.reviews %>
   <table class="table">
     <thead>
       <tr><th>Comments</th></tr>

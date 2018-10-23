@@ -21,7 +21,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1.json
   def show
     @city=City.find_by(id: @restaurant.city_id)
-    @sum= Review.where(:restaurant_id => @restaurant.id).avg(:rating)
+    @sum= @restaurant.reviews.avg(:rating)
     @menu_items=MenuItem.where(restaurant_id: @restaurant.id)
   end
 
