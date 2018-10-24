@@ -17,8 +17,8 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 set :environment, 'development'
-# every :day, at: '7:24pm' do
-#   rake 'trying:try'
-# end
+ every :day, at: '7:24pm' do
+   rake 'trying:try'
+ end
 
 # Learn more: http://github.com/javan/whenever

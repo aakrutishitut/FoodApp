@@ -2,7 +2,7 @@
 
 class Owners::RestaurantsController < ApplicationController
   authorize_resource class: Owners
-  # load_and_authorize_resource class: Owners::Restaurant
+  load_and_authorize_resource class: Owners::Restaurant
   before_action :set_owners_restaurant, only: %i[show edit update destroy]
   def index
     redirect_to owners_restaurant_url(@restaurant) if restaurant_exists?

@@ -36,17 +36,6 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     respond_to do |format|
       if @order.save
-        @current_items = Cart.all
-        @current_items.each do |current_item|
-          @item = Item.new
-          @item.name = current_item.name
-          @item.quantity = current_item.quantity
-          @item.amount = current_item.amount
-          @item.order_id = @order.id
-          @item.save
-          UserMailer.order_confirmation(current_user.email).deliver_later
-        end
-        Cart.destroy_all
         args = @order.to_json
         HardWorker.perform_in(1.minutes, args)
         format.html { redirect_to restaurants_url, notice: 'Order was successfully created.' }

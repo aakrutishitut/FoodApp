@@ -5,7 +5,6 @@ class CartsController < ApplicationController
   before_action :set_cart, only: %i[update destroy]
   # GET /carts
   # GET /carts.json
-
   # GET /carts/new
   def new
     @cart = Cart.new
