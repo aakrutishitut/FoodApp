@@ -86,6 +86,7 @@ GEM
     chromedriver-helper (2.1.0)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
+    chronic (0.10.2)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -220,8 +221,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    select2-rails (4.0.3)
-      thor (~> 0.14)
     selenium-webdriver (3.14.1)
       childprocess (~> 0.5)
       rubyzip (~> 1.2, >= 1.2.2)
@@ -264,6 +263,8 @@ GEM
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
+    whenever (0.10.0)
+      chronic (>= 0.6.3)
     will_paginate (3.1.6)
     will_paginate_mongoid (2.0.1)
       mongoid
@@ -299,7 +300,6 @@ DEPENDENCIES
   rails-assets-tether!
   rubocop
   sass-rails (~> 5.0)
-  select2-rails
   selenium-webdriver
   sidekiq
   spreadsheet
@@ -310,6 +310,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  whenever
   will_paginate (~> 3.1.0)
   will_paginate_mongoid
 
@@ -317,4 +318,4 @@ RUBY VERSION
    ruby 2.4.4p296
 
 BUNDLED WITH
-   1.16.5
+   1.16.4

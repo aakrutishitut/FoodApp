@@ -7,7 +7,7 @@
     <div class="form-row mb-4">
       <!--Name -->
       <%= f.label :rating %>
-      <%= f.select(:rating, [1,2,3,4,5],{id: 'mySelect2'}) %>
+      <%= f.text_field(:rating, {id: 'mySelect2'}) %>
       <%= f.text_field :comment, :id => "defaultRegisterPhonePassword", :class => "form-control", :placeholder => "Comments" %>
       <%= f.hidden_field :restaurant_id, value: params[:restaurant_id] %>
       <%= f.hidden_field :user_id, value: current_user.id %>

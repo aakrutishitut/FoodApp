@@ -37,7 +37,7 @@ gem 'sidekiq'
 
 gem 'cancancan'
 
-gem "select2-rails"
+# gem "select2-rails"
 
 gem 'will_paginate', '~> 3.1.0'
 
@@ -60,6 +60,8 @@ gem 'better_errors', '~> 2.1', '>= 2.1.1'
 gem 'spreadsheet'
 
 gem 'rubocop', require: false
+
+gem 'whenever', require: false
 
 # gem 'mongoid-observers', '~> 0.1.1'
 

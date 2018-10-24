@@ -2,7 +2,7 @@
 
 class Restaurant
   include Mongoid::Document
-
+  include Mongoid::Timestamps
   validates_presence_of :name, :rate_for_two, :location
   validates :name, length: { within: 8..25 }
   validates_numericality_of :rate_for_two, only_integer: true

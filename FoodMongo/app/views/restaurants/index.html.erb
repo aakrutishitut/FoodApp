@@ -45,7 +45,7 @@
          <td><%= image_tag @restaurant.image.thumb.url unless @restaurant.image.blank? %></td>
         <td><%= link_to @restaurant.name , restaurant_url(@restaurant) %></td>
         <td><%= @restaurant.location %></td>
-        <% sum= Review.where(:restaurant_id => @restaurant.id).avg(:rating) %>
+        <% sum= @restaurant.reviews.avg(:rating) %>
         <td><%= sum %></td>
         <td>
           <%= link_to 'Review',new_restaurant_review_url(@restaurant),:class => "badge badge-light" %>
@@ -75,7 +75,7 @@
             <td><%= image_tag restaurant.image.thumb.url unless restaurant.image.blank? %></td>
             <td><%= link_to restaurant.name , restaurant_url(restaurant) %></td>
             <td><%= restaurant.location %></td>
-            <% sum= Review.where(:restaurant_id => restaurant.id).avg(:rating) %>
+            <% sum= restaurant.reviews.avg(:rating) %>
             <td><%= sum %></td>
             <td>
               <%= link_to 'Review',new_restaurant_review_url(:restaurant_id => restaurant.id),:class => "badge badge-light" %>

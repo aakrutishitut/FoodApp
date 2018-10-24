@@ -2,6 +2,7 @@
 
 class Order
   include Mongoid::Document
+  include Mongoid::Timestamps
   validates_presence_of :payment_mode
 
   belongs_to :user, foreign_key: :user_id
