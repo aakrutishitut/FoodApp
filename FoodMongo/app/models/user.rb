@@ -2,7 +2,7 @@
 
 class User
   include Mongoid::Document
-
+  include Mongoid::Timestamps
   validates :name, length: { within: 8..25 }
   validates :phone_no, length: { is: 10 }
 
