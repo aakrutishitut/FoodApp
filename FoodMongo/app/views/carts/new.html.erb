@@ -1,7 +1,7 @@
 <%= render partial: "layouts/nav_bar" %>
 <%= error_messages_for(@cart) %>
 <div class="form">
-<h1>Add to your cart</h1>
+  <h1>Add to your cart</h1>
   <%= form_for(:cart, :url => {:action => 'create'},:class => "text-center border border-light p-5") do |f| %>
     <div class="form-row mb-4">
       <!--Quantity -->
